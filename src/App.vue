@@ -1,21 +1,20 @@
 <template>
   <div class="app-wrapper">
     <div class="reward-section">
-      <h3>Giải thưởng bạn nhận được</h3>
+      <h3>Giải thưởng bạn nhận được:</h3>
       <ul>
         <li v-for="reward in rewards" :key="reward.id">${{ reward.value }}</li>
       </ul>
       <h3>Tổng cộng: ${{ totalReward }}</h3>
+      <el-button :disabled="spinLevel > 0" v-if="rewards.length > 0" type="primary" @click="retry">Thử lại</el-button>
 
-      <el-button v-if="rewards.length > 0" type="primary" @click="retry">Thử lại</el-button>
+      <h3>Số lần thử còn lại: {{ totalSpinTimes }}</h3>
     </div>
 
     <div class="wheel-wrapper">
       <button :disabled="spinLevel > 0 || totalSpinTimes === 0" class="wheel-button" @click="spin">Quay</button>
       <Wheel :record="wheelData" :spin-level="spinLevel" />
     </div>
-
-    <el-modal></el-modal>
   </div>
 </template>
 
